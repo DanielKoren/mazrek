@@ -11,7 +11,7 @@ namespace core
 		process(const DWORD& process_id);
 		~process();
 
-		bool attached();
+		bool attached();	
 		bool is_wow64();
 
 		bool read_memory(const uintptr_t address, const void* buffer, const size_t size);
@@ -36,12 +36,10 @@ namespace core
 		//remote thread execution
 		bool create_thread(const uintptr_t address, const uintptr_t args);
 		bool nt_create_thread(const uintptr_t address, const uintptr_t args);
-		bool set_windows_hook(const uintptr_t address, const uintptr_t args);
-		bool hijack_thread(const uintptr_t address, const uintptr_t args);
 
 	private:
-		HANDLE m_process_handle = nullptr;
 		DWORD m_process_id = 0;
+		HANDLE m_process_handle = nullptr;
 
 	};
 }

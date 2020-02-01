@@ -1,0 +1,68 @@
+﻿  main.cpp
+  inject.cpp
+  logger.cpp
+  pe_headers.cpp
+  process.cpp
+  helpers.cpp
+D:\dev\mazrek\mazrek\src\misc\helpers.cpp(124,63): warning C4311: 'reinterpret_cast': pointer truncation from 'BYTE *' to 'DWORD'
+D:\dev\mazrek\mazrek\src\misc\helpers.cpp(124,63): warning C4302: 'reinterpret_cast': truncation from 'BYTE *' to 'DWORD'
+D:\dev\mazrek\mazrek\src\misc\helpers.cpp(156,21): warning C4018: '<': signed/unsigned mismatch
+  pixeltype.cpp
+  graphics.cpp
+D:\dev\mazrek\mazrek\src\visuals\graphics.cpp(77,71): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+D:\dev\mazrek\mazrek\src\visuals\graphics.cpp(77,51): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+D:\dev\mazrek\mazrek\src\visuals\graphics.cpp(227,75): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\dev\mazrek\mazrek\src\visuals\graphics.cpp(276,80): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  imgui.cpp
+D:\dev\mazrek\mazrek\src\visuals\imgui\imgui.cpp(8714,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\dev\mazrek\mazrek\src\visuals\imgui\imgui.cpp(8714,37): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx9.cpp
+  logo.cpp
+  input.cpp
+  window.cpp
+D:\dev\mazrek\mazrek\src\visuals\window.cpp(18,70): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+  Generating Code...
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol _CrtDbgReport
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol _CrtDbgReport
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol _CrtDbgReport
+graphics.obj : error LNK2001: unresolved external symbol _CrtDbgReport
+input.obj : error LNK2001: unresolved external symbol _CrtDbgReport
+window.obj : error LNK2001: unresolved external symbol _CrtDbgReport
+libcpmtd.lib(xonce.obj) : error LNK2001: unresolved external symbol _CrtDbgReport
+inject.obj : error LNK2001: unresolved external symbol _CrtDbgReport
+logger.obj : error LNK2001: unresolved external symbol _CrtDbgReport
+pe_headers.obj : error LNK2001: unresolved external symbol _CrtDbgReport
+helpers.obj : error LNK2001: unresolved external symbol _CrtDbgReport
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol _free_dbg
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol _free_dbg
+libcpmtd.lib(xwcsxfrm.obj) : error LNK2001: unresolved external symbol _free_dbg
+libcpmtd.lib(StlCompareStringA.obj) : error LNK2001: unresolved external symbol _free_dbg
+helpers.obj : error LNK2001: unresolved external symbol _free_dbg
+libcpmtd.lib(locale0.obj) : error LNK2001: unresolved external symbol _free_dbg
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol _free_dbg
+libcpmtd.lib(StlLCMapStringA.obj) : error LNK2001: unresolved external symbol _free_dbg
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol _malloc_dbg
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol _malloc_dbg
+libcpmtd.lib(xwcsxfrm.obj) : error LNK2001: unresolved external symbol _malloc_dbg
+libcpmtd.lib(StlCompareStringA.obj) : error LNK2001: unresolved external symbol _malloc_dbg
+helpers.obj : error LNK2001: unresolved external symbol _malloc_dbg
+libcpmtd.lib(locale0.obj) : error LNK2001: unresolved external symbol _malloc_dbg
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol _malloc_dbg
+libcpmtd.lib(StlLCMapStringA.obj) : error LNK2001: unresolved external symbol _malloc_dbg
+libcpmtd.lib(_tolower.obj) : error LNK2019: unresolved external symbol _calloc_dbg referenced in function _Getctype
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol _calloc_dbg
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol _calloc_dbg
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol _calloc_dbg
+libcpmtd.lib(_tolower.obj) : error LNK2019: unresolved external symbol _wcsdup_dbg referenced in function _Getctype
+libcpmtd.lib(xstrcoll.obj) : error LNK2001: unresolved external symbol _wcsdup_dbg
+libcpmtd.lib(locale.obj) : error LNK2019: unresolved external symbol _realloc_dbg referenced in function "private: static void __cdecl std::locale::_Locimp::_Locimp_Addfac(class std::locale::_Locimp *,class std::locale::facet *,unsigned __int64)" (?_Locimp_Addfac@_Locimp@locale@std@@CAXPEAV123@PEAVfacet@23@_K@Z)
+libcpmtd.lib(StlLCMapStringA.obj) : error LNK2019: unresolved external symbol _CrtDbgReportW referenced in function _freea_crt
+libcpmtd.lib(xmbtowc.obj) : error LNK2001: unresolved external symbol _CrtDbgReportW
+libcpmtd.lib(StlCompareStringA.obj) : error LNK2001: unresolved external symbol _CrtDbgReportW
+D:\dev\mazrek\bin\Debug\mazrek.exe : fatal error LNK1120: 7 unresolved externals

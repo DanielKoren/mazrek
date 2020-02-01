@@ -168,6 +168,7 @@
     <ClCompile Include="src\core\logger.cpp" />
     <ClCompile Include="src\core\pe_headers.cpp" />
     <ClCompile Include="src\core\process.cpp" />
+    <ClCompile Include="src\core\thread.cpp" />
     <ClCompile Include="src\misc\helpers.cpp" />
     <ClCompile Include="src\visuals\font\pixeltype.cpp" />
     <ClCompile Include="src\visuals\graphics.cpp" />
@@ -184,6 +185,8 @@
     <ClInclude Include="src\core\logger.hpp" />
     <ClInclude Include="src\core\pe_headers.hpp" />
     <ClInclude Include="src\core\process.hpp" />
+    <ClInclude Include="src\core\thread.hpp" />
+    <ClInclude Include="src\core\shellcode.hpp" />
     <ClInclude Include="src\misc\helpers.hpp" />
     <ClInclude Include="src\visuals\font\pixeltype.h" />
     <ClInclude Include="src\visuals\graphics.hpp" />

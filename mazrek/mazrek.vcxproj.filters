@@ -57,6 +57,9 @@
     <ClCompile Include="src\core\pe_headers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -110,7 +113,13 @@
     <ClInclude Include="src\core\pe_headers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\thread.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\logger.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\shellcode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

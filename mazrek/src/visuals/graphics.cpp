@@ -331,7 +331,7 @@ namespace visuals
 			const auto process_name = m_processes.at(m_current_process).first;
 			const auto process_id = m_processes.at(m_current_process).second;
 			const auto image_path = m_images.at(m_current_image).first;
-
+		
 			auto status = core::inject(process_id, image_path); //printf("%s - %d\nimage path: %s\n", process_name.c_str(), process_id, image_path.c_str());
 
 			m_main_window = !m_main_window;
@@ -345,8 +345,8 @@ namespace visuals
 			return;
 
 		/*injection options*/
-		const char* injection_items[] = { "LoadLibraryA", "ManualMap" };
-		const char* execution_items[] = { "CreateRemoteThread", "NtCreateThreadEx", "SetWindowHookEx", "Hijack Thread" };
+		const char* injection_items[] = { "LoadLibraryA" };
+		const char* execution_items[] = { "CreateRemoteThread", "NtCreateThreadEx", "Hijack Thread" };
 
 		ImGui::Text("injection type");
 		ImGui::SameLine(154);

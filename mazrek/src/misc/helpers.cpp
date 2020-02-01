@@ -5,13 +5,39 @@
 
 namespace misc
 {
-	bool file_exist(const std::string& path)
+	const bool enable_debug_priv()
+	{
+		LUID luid;
+		HANDLE token;
+		TOKEN_PRIVILEGES new_privileges;
+
+		if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &token))
+			return false;
+
+		if (!LookupPrivilegeValue(nullptr, SE_DEBUG_NAME, &luid))
+			return false;
+
+		new_privileges.PrivilegeCount = 1;
+		new_privileges.Privileges[0].Luid = luid;
+		new_privileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+		return AdjustTokenPrivileges(
+			token,                     // TokenHandle
+			FALSE,                     // DisableAllPrivileges
+			&new_privileges,            // NewPrivileges
+			sizeof(new_privileges),     // BufferLength
+			nullptr,                   // PreviousState (OPTIONAL)
+			nullptr                    // ReturnLength (OPTIONAL)
+		);
+	}
+
+	const bool file_exist(const std::string& path)
 	{
 		std::ifstream stream(path);
 		return stream.good();
 	}
 
-	std::string open_filename(const HWND& hwnd)
+	const std::string open_filename(const HWND& hwnd)
 	{
 		char path[MAX_PATH]{};
 
@@ -30,7 +56,7 @@ namespace misc
 		return std::string(path);
 	}
 
-	std::string strip_path(const std::string& directory)
+	const std::string strip_path(const std::string& directory)
 	{
 		std::string result(directory);
 
@@ -43,33 +69,7 @@ namespace misc
 		return result;
 	}
 
-	std::vector<std::pair<std::string, DWORD>> enumerate_processes()
-	{
-		std::vector<std::pair<std::string, DWORD>> result;
-
-		auto snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-		auto pe32 = PROCESSENTRY32{};
-		pe32.dwSize = sizeof(PROCESSENTRY32);
-
-		if (Process32First(snapshot, &pe32))
-		{
-			do
-			{
-				const auto process_name = std::string(pe32.szExeFile);
-				const auto process_id = pe32.th32ProcessID;
-				result.emplace_back(std::make_pair(process_name, process_id));
-			} while (Process32Next(snapshot, &pe32));
-		}
-
-		if (snapshot)
-		{
-			CloseHandle(snapshot);
-		}
-
-		return result;
-	}
-
-	std::vector<std::byte> read_binary_file(const std::string& binary_path)
+	const std::vector<std::byte> read_binary_file(const std::string& binary_path)
 	{
 		std::vector<std::byte> result;
 		std::ifstream file(binary_path, std::ios::ate | std::ios::binary);
@@ -84,6 +84,32 @@ namespace misc
 		file.read(reinterpret_cast<char*>(result.data()), file_size);
 
 		file.close();
+
+		return result;
+	}
+
+	std::vector<std::pair<std::string, DWORD>> enumerate_processes()
+	{
+		std::vector<std::pair<std::string, DWORD>> result;
+
+		auto snapshot_handle = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		auto pe32 = PROCESSENTRY32{};
+		pe32.dwSize = sizeof(PROCESSENTRY32);
+
+		if (Process32First(snapshot_handle, &pe32))
+		{
+			do
+			{
+				const auto process_name = std::string(pe32.szExeFile);
+				const auto process_id = pe32.th32ProcessID;
+				result.emplace_back(std::make_pair(process_name, process_id));
+			} while (Process32Next(snapshot_handle, &pe32));
+		}
+
+		if (snapshot_handle)
+		{
+			CloseHandle(snapshot_handle);
+		}
 
 		return result;
 	}
@@ -105,7 +131,7 @@ namespace misc
 		return 0;
 	}
 
-	DWORD remote_wow64_procedure(const DWORD& process_id, const char* module_name, const char* procedure_name)
+	const DWORD remote_wow64_procedure(const DWORD& process_id, const char* module_name, const char* procedure_name)
 	{
 		auto snapshot_handle = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, process_id);
 		if (!snapshot_handle)

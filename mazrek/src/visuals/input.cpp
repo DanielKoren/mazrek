@@ -89,11 +89,11 @@ namespace visuals
 					return MessageBox(hwnd, "Path is not valid", "error", MB_ICONERROR | MB_OK);
 
 				const auto path_len = strlen(path);
-				auto extension = &path[path_len - 3];
+				const auto extension = &path[path_len - 3];
 				if (strcmp(extension, "dll"))
 					return MessageBox(hwnd, "Only DLL files are allowed", "error", MB_ICONERROR | MB_OK);
 
-				std::string filename = misc::strip_path(path);
+				const auto file_name = misc::strip_path(path);
 
 				bool image_exist = std::any_of(graphics::m_images.begin(), graphics::m_images.end(),
 					[&path](const std::pair<std::string, std::string>& p)
@@ -103,7 +103,7 @@ namespace visuals
 
 				if (!image_exist) 
 				{
-					graphics::m_images.emplace_back(std::make_pair(path, filename));
+					graphics::m_images.emplace_back(std::make_pair(path, file_name));
 				}
 			}
 			DragFinish(drop_handle);

@@ -7,15 +7,13 @@ namespace core
 {
 	enum class injection 
 	{ 
-		loadlibrary, 
-		manualmap 
+		loadlibrary
 	};
 
 	enum class execution 
 	{ 
 		createremotethread, 
 		ntcreatethreadex, 
-		setwindowhookex, 
 		hijackthread	
 	};
 

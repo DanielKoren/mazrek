@@ -4,7 +4,7 @@
 enum main_status : int
 {
 	err_success = 0x0,
-	err_something = 1U << 0,//0x00000001
+	err_debug_priv = 1U << 0,//0x00000001
 	err_window = 1U << 1,	//0x00000002
 	err_graphics = 1U << 2	//0x00000004
 };
@@ -17,7 +17,6 @@ int __stdcall WinMain
 	_In_ int		cmd_show
 )
 {
-	//todo; maybe enable debug privileges.. idk
 	using namespace visuals;
 
 	auto wnd = window(instance);

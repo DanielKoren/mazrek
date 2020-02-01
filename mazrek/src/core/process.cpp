@@ -1,8 +1,5 @@
 #include "process.hpp"
 #include <Windows.h>
-#include <string>
-#include <TlHelp32.h>
-#include <Psapi.h>
 
 inline bool check_handle(HANDLE handle)
 {
@@ -17,11 +14,11 @@ namespace core
 		ACCESS_MASK desired_access = PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION |
 			PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_CREATE_THREAD;
 
-		m_process_handle = OpenProcess(desired_access, FALSE, m_process_id);
+		m_process_handle = OpenProcess(desired_access, FALSE, m_process_id);	
 	}
 
 	process::~process()
-	{
+	{		
 		if (check_handle(m_process_handle))
 		{
 			CloseHandle(m_process_handle);
@@ -54,7 +51,7 @@ namespace core
 
 	uintptr_t process::allocate_memory(const uintptr_t address, const size_t size)
 	{
-		return reinterpret_cast<uintptr_t>(VirtualAllocEx(m_process_handle, reinterpret_cast<LPVOID>(address), size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE));
+		return reinterpret_cast<uintptr_t>(VirtualAllocEx(m_process_handle, reinterpret_cast<LPVOID>(address), size, MEM_COMMIT, PAGE_EXECUTE_READWRITE));
 	}
 
 	bool process::free_memory(const uintptr_t address)
@@ -64,25 +61,13 @@ namespace core
 
 	bool process::create_thread(const uintptr_t address, const uintptr_t args)
 	{
-		HANDLE thread_handle = nullptr;
-
-		thread_handle = CreateRemoteThread(m_process_handle,
+		const auto thread_handle = CreateRemoteThread(m_process_handle,
 			nullptr,
 			NULL,
 			reinterpret_cast<LPTHREAD_START_ROUTINE>(address),
 			reinterpret_cast<LPVOID>(args),
 			NULL,
 			nullptr);
-
-		/*WaitForSingleObject(thread_handle, INFINITE);
-
-		DWORD exit_code = 0;
-		GetExitCodeThread(thread_handle, &exit_code);
-
-		if (check_handle(thread_handle))
-		{
-			CloseHandle(thread_handle);
-		}*/
 
 		if (!check_handle(thread_handle))
 		{
@@ -96,16 +81,14 @@ namespace core
 	bool process::nt_create_thread(const uintptr_t address, const uintptr_t args)
 	{
 #define NT_SUCCESS(x) ((x) >= 0)
-		typedef LONG(__stdcall* NtCreateThreadEx_t)(
-			PHANDLE ThreadHandle, ACCESS_MASK DesiredAccess, LPVOID ObjectAttributes, HANDLE ProcessHandle, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, BOOL CreateSuspended, DWORD dwStackSize, LPVOID Unknown1, LPVOID Unknown2, LPVOID Unknown3
-			);
-		HANDLE thread_handle = nullptr;
+		using NtCreateThreadEx_t = LONG(__stdcall*)(PHANDLE ThreadHandle, ACCESS_MASK DesiredAccess, LPVOID ObjectAttributes, HANDLE ProcessHandle, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, BOOL CreateSuspended, DWORD dwStackSize, LPVOID Unknown1, LPVOID Unknown2, LPVOID Unknown3);
 
+		HANDLE thread_handle = nullptr;
 		const auto NtCreateThreadEx = reinterpret_cast<NtCreateThreadEx_t>(GetProcAddress(GetModuleHandle("ntdll"), "NtCreateThreadEx"));;
 		if (!NtCreateThreadEx)
 			return false;
 
-		auto status = NtCreateThreadEx(&thread_handle,
+		const auto status = NtCreateThreadEx(&thread_handle,
 			THREAD_ALL_ACCESS,
 			nullptr,
 			m_process_handle,
@@ -124,12 +107,6 @@ namespace core
 		}
 
 		CloseHandle(thread_handle);
-		return true;
-	}
-
-	bool process::hijack_thread(const uintptr_t address, const uintptr_t args)
-	{
-
 		return true;
 	}
 }
